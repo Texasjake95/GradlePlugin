@@ -25,7 +25,8 @@ public class DependencyAdder implements BuildListener {
 	public void projectsEvaluated(Gradle arg0)
 	{
 		for (IDependency dep : dependencies)
-			ProjectHelper.addDependency(arg0.getRootProject(), dep.getDependencyName(arg0.getRootProject()));
+			if (dep.shouldDependencyBeDownloaded(arg0.getRootProject()))
+				ProjectHelper.addDependency(arg0.getRootProject(), dep.getDependencyName(arg0.getRootProject()));
 	}
 	
 	@Override

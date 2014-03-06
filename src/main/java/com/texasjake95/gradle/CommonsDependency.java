@@ -10,4 +10,11 @@ public class CommonsDependency implements IDependency {
 		CommonsExtension commons = (CommonsExtension) project.getExtensions().getByName("CommonsVersion");
 		return "com.texasjake95:Texasjake95Commons:" + commons.getVesion();
 	}
+	
+	@Override
+	public boolean shouldDependencyBeDownloaded(Project project)
+	{
+		CommonsExtension commons = (CommonsExtension) project.getExtensions().getByName("CommonsVersion");
+		return commons.getShouldDownload();
+	}
 }
