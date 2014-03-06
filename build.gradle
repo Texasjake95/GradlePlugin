@@ -20,10 +20,43 @@ dependencies {
 	compile gradleApi()
 	compile localGroovy()
 }
-
 uploadArchives {
 	repositories {
-		mavenDeployer { repository(url: "file:maven-repo/") }
+		mavenDeployer {
+			repository(url: "file:maven-repo/")
+			
+			pom {
+				groupId = project.group
+				version = project.version
+				artifactId = project.archivesBaseName
+				project {
+					name project.archivesBaseName
+					packaging 'jar'
+					description 'Gradle plugin for Texasjake95'
+					url 'https://github.com/Texasjake95/GradlePlugin'
+					
+					scm {
+						url 'https://github.com/Texasjake95/GradlePlugin'
+						connection 'scm:git:git://github.com/Texasjake95/GradlePlugin.git'
+						developerConnection 'scm:git:git@github.com:Texasjake95/GradlePlugin.git'
+					}
+					
+					issueManagement {
+						system 'github'
+						url 'https://github.com/Texasjake95/GradlePlugin/issues'
+					}
+					
+					developers {
+						developer {
+							id 'Texasjake95'
+							name 'Texasjake95'
+							roles { role 'developer' }
+						}
+					}
+				}
+			}
+		}
 	}
+}
 }
 
