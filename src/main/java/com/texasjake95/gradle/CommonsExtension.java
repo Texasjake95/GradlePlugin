@@ -1,11 +1,10 @@
 package com.texasjake95.gradle;
 
-import org.gradle.api.Project;
 
 public class CommonsExtension {
 	
 	public String version = "1.0.18";
-	public String shouldDownload = "true";
+	public boolean shouldDownload = true;
 	
 	public CommonsExtension()
 	{
@@ -21,12 +20,12 @@ public class CommonsExtension {
 		this.version = version;
 	}
 	
-	public String getShouldDownload()
+	public boolean getShouldDownload()
 	{
 		return this.shouldDownload;
 	}
 	
-	public void setShouldDownload(String shouldDownload)
+	public void setShouldDownload(boolean shouldDownload)
 	{
 		this.shouldDownload = shouldDownload;
 	}
