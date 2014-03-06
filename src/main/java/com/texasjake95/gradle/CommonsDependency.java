@@ -15,6 +15,6 @@ public class CommonsDependency implements IDependency {
 	public boolean shouldDependencyBeDownloaded(Project project)
 	{
 		CommonsExtension commons = (CommonsExtension) project.getExtensions().getByName("CommonsVersion");
-		return commons.getShouldDownload();
+		return Boolean.parseBoolean(commons.getShouldDownload());
 	}
 }

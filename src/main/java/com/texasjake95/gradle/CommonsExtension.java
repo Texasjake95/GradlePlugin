@@ -7,7 +7,7 @@ public class CommonsExtension {
 	@SuppressWarnings("unused")
 	private Project project;
 	protected String version = "1.0.18";
-	protected boolean shouldDownload = true;
+	protected String shouldDownload = "true";
 	
 	public CommonsExtension(Project project)
 	{
@@ -24,12 +24,12 @@ public class CommonsExtension {
 		this.version = version;
 	}
 	
-	public boolean getShouldDownload()
+	public String getShouldDownload()
 	{
 		return this.shouldDownload;
 	}
 	
-	public void setShouldDownload(boolean shouldDownload)
+	public void setShouldDownload(String shouldDownload)
 	{
 		this.shouldDownload = shouldDownload;
 	}
