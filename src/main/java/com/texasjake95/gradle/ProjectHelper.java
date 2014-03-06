@@ -6,7 +6,6 @@ import org.gradle.api.Action;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository;
 
-
 public class ProjectHelper {
 	
 	public static void addDependency(Project project, String dep)

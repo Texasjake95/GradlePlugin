@@ -1,6 +1,5 @@
 package com.texasjake95.gradle;
 
-
 public class CommonsExtension {
 	
 	public String version = "1.0.43";
