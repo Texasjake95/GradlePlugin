@@ -6,21 +6,28 @@ import org.gradle.api.plugins.JavaPluginConvention;
 
 public class Texasjake95GradlePlugin implements Plugin<Project> {
 	
+	private static boolean debug = false;
+	
 	@Override
 	public void apply(Project project)
 	{
-		// System.out.println("Applying Plugins");
+		if (debug)
+			System.out.println("Applying Plugins");
 		this.applyPlugins(project);
-		// System.out.println("Adding Repos");
+		if (debug)
+			System.out.println("Adding Repos");
 		this.addRepos(project);
 		addDelayedDependency(new CommonsDependency());
-		// System.out.println("Creating Extension");
+		if (debug)
+			System.out.println("Creating Extension");
 		project.getExtensions().create("CommonsVersion", CommonsExtension.class);
 		JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java");
-		// System.out.println("Setting Compatibility");
+		if (debug)
+			System.out.println("Setting Compatibility");
 		javaConv.setSourceCompatibility("1.7");
 		javaConv.setTargetCompatibility("1.7");
-		// System.out.println("Setting Group");
+		if (debug)
+			System.out.println("Setting Group");
 		project.setGroup("com.texasjake95");
 		project.getGradle().addBuildListener(new DependencyAdder());
 	}
