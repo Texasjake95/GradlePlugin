@@ -44,6 +44,8 @@ public class Texasjake95GradlePlugin implements Plugin<Project> {
 		ProjectHelper.applyPlugin(project, "java");
 		ProjectHelper.applyPlugin(project, "eclipse");
 		ProjectHelper.applyPlugin(project, "maven");
+		ProjectHelper.applyPlugin(project, "maven-publish");
+
 	}
 	
 	public static void addDelayedDependency(IDependency dep)
