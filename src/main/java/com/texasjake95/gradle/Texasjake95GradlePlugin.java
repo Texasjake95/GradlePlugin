@@ -17,10 +17,8 @@ public class Texasjake95GradlePlugin implements Plugin<Project> {
 		if (debug)
 			System.out.println("Adding Repos");
 		this.addRepos(project);
-		addDelayedDependency(new CommonsDependency());
 		if (debug)
 			System.out.println("Creating Extension");
-		project.getExtensions().create("CommonsVersion", CommonsExtension.class);
 		JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java");
 		if (debug)
 			System.out.println("Setting Compatibility");
