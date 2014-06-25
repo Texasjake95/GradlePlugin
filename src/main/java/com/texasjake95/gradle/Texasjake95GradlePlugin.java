@@ -25,7 +25,6 @@ public class Texasjake95GradlePlugin implements Plugin<Project> {
 		if (debug)
 			System.out.println("Setting Group");
 		project.setGroup("com.texasjake95");
-		project.getGradle().addBuildListener(new DependencyAdder());
 	}
 	
 	public void addRepos(Project project)
@@ -42,10 +41,5 @@ public class Texasjake95GradlePlugin implements Plugin<Project> {
 		ProjectHelper.applyPlugin(project, "maven");
 		ProjectHelper.applyPlugin(project, "maven-publish");
 
-	}
-	
-	public static void addDelayedDependency(IDependency dep)
-	{
-		DependencyAdder.dependencies.add(dep);
 	}
 }
