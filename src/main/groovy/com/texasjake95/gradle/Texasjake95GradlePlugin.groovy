@@ -33,7 +33,7 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 			def toRemove = new ArrayList<Node>()
 			node.each
 			{
-				for(EclipseData dep : project.eclipseSetup.list)
+				for(EclipseData dep : project.eclipseSetup.data)
 					handle(project,dep.dep,it,toRemove,dep.code,dep.src)
 			}
 			toRemove.each
