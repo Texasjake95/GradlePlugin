@@ -1,12 +1,11 @@
 package com.texasjake95.gradle;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.beust.jcommander.internal.Lists;
 
 public class ExtensionEclipseSetup {
 	
-	private List<EclipseData> data = Lists.newArrayList();
+	private List<EclipseData> data = new ArrayList<EclipseData>();
 	
 	public void addEclipseSetup(String dep, String src)
 	{
