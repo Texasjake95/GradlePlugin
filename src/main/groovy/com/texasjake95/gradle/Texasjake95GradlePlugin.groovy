@@ -11,7 +11,7 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 	@Override
 	public void apply(Project project)
 	{
-		project.extensions.create("eclipseSetup", ExtensionEclipseSetup.class, project)
+		project.extensions.create("eclipseSetup", ExtensionEclipseSetup.class)
 		if (debug)
 			System.out.println("Applying Plugins")
 		this.applyPlugins(project)
