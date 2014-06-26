@@ -67,6 +67,10 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 		}
 	}
 	
+	def find(project, depName) {
+		return project.configurations.default.find { it.name.contains(depName) }
+	}
+	
 	private <T> T getExtension(Project project, String name)
 	{
 		return (T)project.extensions.findByName(name)
