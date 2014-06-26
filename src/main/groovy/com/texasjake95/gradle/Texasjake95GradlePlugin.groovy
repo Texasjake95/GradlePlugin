@@ -55,11 +55,11 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 			def filePath = node.attribute('path')
 			if(filePath && codejar && sourceJar && find(project,codejar) && find(project,sourceJar))
 			{
-				if (file(filePath) == file(find(project,codejar)))
+				if (project.file(filePath) == project.file(find(project,codejar)))
 				{
 					node.attributes().put("sourcepath",find(project,sourceJar))
 				}
-				if (file(filePath) == file(find(project,sourceJar)))
+				if (project.file(filePath) == project.file(find(project,sourceJar)))
 				{
 					list.add(node)
 				}
