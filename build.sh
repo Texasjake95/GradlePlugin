@@ -7,7 +7,7 @@ rm -rf maven-repo
 git clone https://Texasjake95@github.com/Texasjake95/maven-repo.git ./maven-repo -v
 
 # run gradle
-./gradlew build uploadArchives
+./gradlew build uploadArchives -Pfilesmave="file:maven-repo/"
 
 # change to the maven repo directory
 cd ./maven-repo

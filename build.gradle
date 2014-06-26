@@ -1,7 +1,8 @@
+
+apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
-apply plugin: 'groovy'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -41,39 +42,50 @@ artifacts {
 build.dependsOn sourcesJar, javadocJar
 
 uploadArchives {
+	dependsOn 'build'
 	repositories {
-		mavenDeployer {
-			repository(url: "file:maven-repo/")
-			
-			pom {
-				groupId = project.group
-				version = project.version
-				artifactId = project.archivesBaseName
-				project {
-					name project.archivesBaseName
-					packaging 'jar'
-					description 'Gradle plugin for Texasjake95'
-					url 'https://github.com/Texasjake95/GradlePlugin'
-					
-					scm {
+		
+		if(project.hasProperty("filesmaven"))
+		{
+			mavenDeployer {
+				logger.info("Pushing to Maven Remote")
+				repository(url: project.filesmaven)
+				pom {
+					groupId = project.group
+					version = project.version
+					artifactId = project.archivesBaseName
+					project {
+						name project.archivesBaseName
+						packaging 'jar'
+						description 'Plugin for Texasjake95\'s gradle scripts'
 						url 'https://github.com/Texasjake95/GradlePlugin'
-						connection 'scm:git:git://github.com/Texasjake95/GradlePlugin.git'
-						developerConnection 'scm:git:git@github.com:Texasjake95/GradlePlugin.git'
-					}
-					
-					issueManagement {
-						system 'github'
-						url 'https://github.com/Texasjake95/GradlePlugin/issues'
-					}
-					
-					developers {
-						developer {
-							id 'Texasjake95'
-							name 'Texasjake95'
-							roles { role 'developer' }
+						
+						scm {
+							url 'https://github.com/Texasjake95/GradlePlugin'
+							connection 'scm:git:git://github.com/Texasjake95/GradlePlugin.git'
+							developerConnection 'scm:git:git@github.com:Texasjake95/GradlePlugin.git'
+						}
+						
+						issueManagement {
+							system 'github'
+							url 'https://github.com/Texasjake95/GradlePlugin/issues'
+						}
+						
+						developers {
+							developer {
+								id 'Texasjake95'
+								name 'Texasjake95'
+								roles { role 'developer' }
+							}
 						}
 					}
 				}
+			}
+		}
+		else{
+			logger.info("Pushing to Maven Local")
+			mavenDeployer {
+				repository(url: project.repositories.mavenLocal().url)
 			}
 		}
 	}

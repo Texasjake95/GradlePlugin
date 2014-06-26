@@ -5,45 +5,14 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
 
-class Texasjake95GradlePlugin implements Plugin<Project>
+public class Texasjake95GradlePlugin implements Plugin<Project>
 {
 	private static boolean debug = false
 	
 	@Override
 	public void apply(Project project)
 	{
-		if (debug)
-			System.out.println("Applying Plugins")
-		ProjectHelper.applyPlugins(project)
-		
-		JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java")
-		
-		ProjectHelper.addTask(project, "javadocJar", Jar.class)
-		{
-			dependsOn "javadoc"
-			classifier "javadoc"
-			from project.buildDir.absolutePath + "/docs/javadoc"
-		}
-		
-		ProjectHelper.addTask(project, "sourceJar", Jar.class)
-		{
-			dependsOn "classes"
-			classifier = 'sources'
-			from javaConv.sourceSets.main.java
-		}
-		
-		project.extensions.create("eclipseSetup", ExtensionEclipseSetup.class)
-		
-		if (debug)
-			System.out.println("Adding Repos")
-		ProjectHelper.addRepos(project)
-		if (debug)
-			System.out.println("Setting Compatibility")
-		javaConv.setSourceCompatibility("1.7")
-		javaConv.setTargetCompatibility("1.7")
-		if (debug)
-			System.out.println("Setting Group")
-		project.group = "com.texasjake95"
+		JavaProxy.apply(project)
 		project.eclipse.classpath.file.withXml
 		{
 			def node = it.asNode()
@@ -58,14 +27,7 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 		}
 	}
 	
-	public void addTasks(Project project)
-	{
-		project.task("")
-		{
-		}
-	}
-	
-	def handle(project, depName,node,list,code,src)
+	private static def handle(project, depName,node,list,code,src)
 	{
 		if(depName)
 		{
