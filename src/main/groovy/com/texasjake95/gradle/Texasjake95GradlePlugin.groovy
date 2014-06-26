@@ -3,6 +3,7 @@ package com.texasjake95.gradle
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.bundling.Jar
 
 class Texasjake95GradlePlugin implements Plugin<Project>
 {
@@ -11,6 +12,23 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 	@Override
 	public void apply(Project project)
 	{
+		
+		JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java")
+		
+		ProjectHelper.addTask(project, "javadocJar", Jar.class)
+		{
+			dependsOn "javadoc"
+			classifier "javadoc"
+			from project.buildDir.absolutePath + "/docs/javadoc"
+		}
+		
+		ProjectHelper.addTask(project, "sourceJar", Jar.class)
+		{
+			dependsOn "classes"
+			classifier = 'sources'
+			from javaConv.sourceSets.main.java
+		}
+		
 		project.extensions.create("eclipseSetup", ExtensionEclipseSetup.class)
 		if (debug)
 			System.out.println("Applying Plugins")
@@ -18,7 +36,6 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 		if (debug)
 			System.out.println("Adding Repos")
 		ProjectHelper.addRepos(project)
-		JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java")
 		if (debug)
 			System.out.println("Setting Compatibility")
 		javaConv.setSourceCompatibility("1.7")
@@ -37,6 +54,13 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 			}
 			toRemove.each
 			{ node.remove(it) }
+		}
+	}
+	
+	public void addTasks(Project project)
+	{
+		project.task("")
+		{
 		}
 	}
 	
@@ -65,6 +89,4 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 			}
 		}
 	}
-
-
 }

@@ -23,6 +23,23 @@ dependencies {
 	compile localGroovy()
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.java
+}
+
+task javadocJar(type: Jar, dependsOn: "javadoc") {
+	classifier "javadoc"
+	from "${buildDir}/docs/javadoc"
+}
+
+artifacts { 
+	archives sourcesJar 
+	archives javadocJar
+}
+
+build.dependsOn sourcesJar, javadocJar
+
 uploadArchives {
 	repositories {
 		mavenDeployer {

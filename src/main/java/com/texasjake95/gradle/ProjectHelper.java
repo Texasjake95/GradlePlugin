@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.gradle.api.Action;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository;
 
 public class ProjectHelper {
@@ -49,4 +50,12 @@ public class ProjectHelper {
 		applyPlugin(project, "eclipse");
 		applyPlugin(project, "maven");
 	}
-}
+	
+	   @SuppressWarnings("unchecked")
+	    public static <T extends Task> T addTask(Project proj, String name, Class<T> type)
+	    {
+	        HashMap<String, Object> map = new HashMap<String, Object>();
+	        map.put("name", name);
+	        map.put("type", type);
+	        return (T) proj.task(map, name);
+	    }}
