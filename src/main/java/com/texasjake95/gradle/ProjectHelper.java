@@ -51,11 +51,13 @@ public class ProjectHelper {
 		applyPlugin(project, "maven");
 	}
 	
-	   @SuppressWarnings("unchecked")
-	    public static <T extends Task> T addTask(Project proj, String name, Class<T> type)
-	    {
-	        HashMap<String, Object> map = new HashMap<String, Object>();
-	        map.put("name", name);
-	        map.put("type", type);
-	        return (T) proj.task(map, name);
-	    }}
+	@SuppressWarnings("unchecked")
+	public static <T extends Task> T addTask(Project proj, String name, Class<T> type)
+	{
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("type", type);
+		return (T) proj.task(map, name);
+	}
+	
+}
