@@ -14,10 +14,10 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 		project.extensions.create("eclipseSetup", ExtensionEclipseSetup.class)
 		if (debug)
 			System.out.println("Applying Plugins")
-		this.applyPlugins(project)
+		ProjectHelper.applyPlugins(project)
 		if (debug)
 			System.out.println("Adding Repos")
-		this.addRepos(project)
+		ProjectHelper.addRepos(project)
 		JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java")
 		if (debug)
 			System.out.println("Setting Compatibility")
@@ -26,7 +26,6 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 		if (debug)
 			System.out.println("Setting Group")
 		project.group = "com.texasjake95"
-		
 		project.eclipse.classpath.file.withXml
 		{
 			def node = it.asNode()
@@ -53,42 +52,19 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 				sourceJar += "-" + src
 			
 			def filePath = node.attribute('path')
-			if(filePath && codejar && sourceJar && find(project,codejar) && find(project,sourceJar))
+			if(filePath && codejar && sourceJar && ProjectHelperGroovy.find(project,codejar) && ProjectHelperGroovy.find(project,sourceJar))
 			{
-				if (project.file(filePath) == project.file(find(project,codejar)))
+				if (project.file(filePath) == project.file(ProjectHelperGroovy.find(project,codejar)))
 				{
-					node.attributes().put("sourcepath",find(project,sourceJar))
+					node.attributes().put("sourcepath",ProjectHelperGroovy.find(project,sourceJar))
 				}
-				if (project.file(filePath) == project.file(find(project,sourceJar)))
+				if (project.file(filePath) == project.file(ProjectHelperGroovy.find(project,sourceJar)))
 				{
 					list.add(node)
 				}
 			}
 		}
 	}
-	
-	def find(project, depName)
-	{
-		return project.configurations.default.find { it.name.contains(depName) }
-	}
-	
-	private <T> T getExtension(Project project, String name)
-	{
-		return (T)project.extensions.findByName(name)
-	}
-	
-	public void addRepos(Project project)
-	{
-		project.getRepositories().mavenLocal()
-		project.getRepositories().mavenCentral()
-		ProjectHelper.addMaven(project, "texasjake95Maven", "https://github.com/Texasjake95/maven-repo/raw/master/")
-	}
-	
-	public void applyPlugins(Project project)
-	{
-		ProjectHelper.applyPlugin(project, "java")
-		ProjectHelper.applyPlugin(project, "eclipse")
-		ProjectHelper.applyPlugin(project, "maven")
-		ProjectHelper.applyPlugin(project, "maven-publish")
-	}
+
+
 }

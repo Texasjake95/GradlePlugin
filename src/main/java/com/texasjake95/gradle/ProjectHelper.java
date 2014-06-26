@@ -35,4 +35,18 @@ public class ProjectHelper {
 			project.apply(map);
 		}
 	}
+	
+	public static void addRepos(Project project)
+	{
+		project.getRepositories().mavenLocal();
+		project.getRepositories().mavenCentral();
+		addMaven(project, "texasjake95Maven", "https://github.com/Texasjake95/maven-repo/raw/master/");
+	}
+	
+	public static void applyPlugins(Project project)
+	{
+		applyPlugin(project, "java");
+		applyPlugin(project, "eclipse");
+		applyPlugin(project, "maven");
+	}
 }
