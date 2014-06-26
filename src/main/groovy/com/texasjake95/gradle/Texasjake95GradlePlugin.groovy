@@ -4,9 +4,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
 
-
 class Texasjake95GradlePlugin implements Plugin<Project>
 {
+	private static boolean debug = false
 	
 	@Override
 	public void apply(Project project)
@@ -67,7 +67,8 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 		}
 	}
 	
-	def find(project, depName) {
+	def find(project, depName)
+	{
 		return project.configurations.default.find { it.name.contains(depName) }
 	}
 	
