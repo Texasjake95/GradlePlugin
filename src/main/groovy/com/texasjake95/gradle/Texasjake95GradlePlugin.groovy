@@ -12,6 +12,9 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 	@Override
 	public void apply(Project project)
 	{
+		if (debug)
+			System.out.println("Applying Plugins")
+		ProjectHelper.applyPlugins(project)
 		
 		JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java")
 		
@@ -30,9 +33,7 @@ class Texasjake95GradlePlugin implements Plugin<Project>
 		}
 		
 		project.extensions.create("eclipseSetup", ExtensionEclipseSetup.class)
-		if (debug)
-			System.out.println("Applying Plugins")
-		ProjectHelper.applyPlugins(project)
+		
 		if (debug)
 			System.out.println("Adding Repos")
 		ProjectHelper.addRepos(project)
