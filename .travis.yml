@@ -1,7 +1,15 @@
 language: java
 jdk:
 - oraclejdk7
-script: bash build.sh
+
+before_install: bash scripts/preInstall.sh
+
+script: ./gradlew build
+
+after_success: bash scripts/success.sh
+
+after_script: rm -rf maven-repo
+
 env:
   global:
     secure: TcCZ818+1eDiMEG+V0DR7dDZLDVvWdAiJNXBdj/0A7PlyN8wSJzDkcwuLtezGj8Z6jq8X1VQY1FVM9FS4+28iaFYpqMEg15hAc29n20gWFV0BKWj5Qx98lrF3cqbJgzSGaXq2IgCVLe9Yq5WRceTsAi7r31/mymqk79RJs9MpcU=
