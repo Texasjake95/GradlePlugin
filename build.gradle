@@ -7,7 +7,7 @@ apply plugin: 'maven'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-group = "com.gitub.texasjake95"
+group = "com.github.texasjake95"
 archivesBaseName = "GradlePlugin"
 version = '1.2-SNAPSHOT'
 
@@ -24,7 +24,6 @@ isSnapshot=true
 else if(project.hasProperty("release"))
 {
 isRelease=true
-
 }
 else
 {

@@ -36,7 +36,7 @@ public class JavaProxy {
 		javaConv.setTargetCompatibility("1.7");
 		if (debug)
 			System.out.println("Setting Group");
-		project.setGroup("com.gitub.texasjake95");
+		project.setGroup("com.github.texasjake95");
 	}
 	
 	public void addRepos(Project project)
