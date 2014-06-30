@@ -62,7 +62,7 @@ uploadArchives {
 	dependsOn 'build'
 	repositories {
 		
-		if(!dev && mavenRepo)
+		if(!dev)
 		{
 			mavenDeployer {
 				logger.info("Pushing to Maven Remote")
