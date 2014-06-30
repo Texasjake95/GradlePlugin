@@ -66,10 +66,10 @@ uploadArchives {
 		
 		if(!dev)
 		{
-			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-		
 			mavenDeployer {
 				logger.info("Pushing to Maven Remote")
+				
+				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 				
 				if(isRelease && !project.version.contains("SNAPSHOT")){
 					repository(url:"https://oss.sonatype.org/service/local/staging/deploy/maven2/"){
