@@ -67,15 +67,17 @@ uploadArchives {
 			mavenDeployer {
 				logger.info("Pushing to Maven Remote")
 				
-				if(isRelease && !project.version.contains("SNAPSHOT")
+				if(isRelease && !project.version.contains("SNAPSHOT")){
 					repository(url:"https://oss.sonatype.org/service/local/staging/deploy/maven2/"){
 						authentication(userName: project.mavenUser, password: project.mavenPass)
 					}
+				}
 				
-				if(isSnapshot)
+				if(isSnapshot){
      				snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/"){
 						authentication(userName: project.mavenUser, password: project.mavenPass)
 					}
+				}
 				
 				pom {
 					groupId = project.group
