@@ -41,7 +41,9 @@ public class ProjectHelper {
 	{
 		project.getRepositories().mavenLocal();
 		project.getRepositories().mavenCentral();
-		addMaven(project, "texasjake95Maven", "https://github.com/Texasjake95/maven-repo/raw/master/");
+		ProjectHelper.addMaven(project, "texasjake95Maven", "https://github.com/Texasjake95/maven-repo/raw/master/");
+		ProjectHelper.addMaven(project, "sonatype snapshots", "https://oss.sonatype.org/content/repositories/snapshots/");
+		ProjectHelper.addMaven(project, "sonatype releases", "https://oss.sonatype.org/content/repositories/releases/");
 	}
 	
 	public static void applyPlugins(Project project)
@@ -49,6 +51,7 @@ public class ProjectHelper {
 		applyPlugin(project, "java");
 		applyPlugin(project, "eclipse");
 		applyPlugin(project, "maven");
+		applyPlugin(project, "signing");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -59,5 +62,4 @@ public class ProjectHelper {
 		map.put("type", type);
 		return (T) proj.task(map, name);
 	}
-	
 }
