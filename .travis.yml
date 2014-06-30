@@ -1,15 +1,14 @@
 language: java
 jdk:
 - oraclejdk7
-
 before_install: bash scripts/preInstall.sh
-
 script: ./gradlew build
-
 after_success: bash scripts/success.sh
-
-after_script: rm -rf maven-repo
-
 env:
   global:
-    secure: TcCZ818+1eDiMEG+V0DR7dDZLDVvWdAiJNXBdj/0A7PlyN8wSJzDkcwuLtezGj8Z6jq8X1VQY1FVM9FS4+28iaFYpqMEg15hAc29n20gWFV0BKWj5Qx98lrF3cqbJgzSGaXq2IgCVLe9Yq5WRceTsAi7r31/mymqk79RJs9MpcU=
+  - secure: TcCZ818+1eDiMEG+V0DR7dDZLDVvWdAiJNXBdj/0A7PlyN8wSJzDkcwuLtezGj8Z6jq8X1VQY1FVM9FS4+28iaFYpqMEg15hAc29n20gWFV0BKWj5Qx98lrF3cqbJgzSGaXq2IgCVLe9Yq5WRceTsAi7r31/mymqk79RJs9MpcU=
+  - secure: E5Ca9yUdWarUNisbrJ9sVLAVBtv0ZBchpa2n30XU9iODb91AHmOUIIXDvipDge+dcI5dD/sNeAl50Cer+HKs81wJLwpnRMUyiexWSRgSSF/MQRAlJeUgYy/wrwM2B0AnrGor3nmiXKIbITVLxTgViuoLAUtjYVoUa6lMyZ7I0Rs=
+  - secure: L1H2NJ2XjEGO2Btgs+hHp7gHx1SG3GCz6yNoTICsUyw7vIqz5k9I+HQ9owtZTbS76xmK+QZblHtfT5e70795rmF/6G2ScL/zU414p8c2LcPgT3O/EpJ+PCaVy1Ox0P4P7GGWf6P5ms+wybiCvgKIKzUj8yO8Sj1aFXj/hVuuPxA=
+  - secure: GlNveJ00ikDsoc+485wd+rQKA+5OJ+xQ1P65sHtok4Q/8fr/kDg/AyW2bcZ2FCnrmx+FCo5SVqyWBiE5iA/WAiJs4foue4i+FTAX9bFWCeAylifdA7AXS00xUz2F7HwtWlswO8wZO+Jkg6mtR8p0s/l84ebLQxt818Gz7o9zHWQ=
+  - secure: EX+7cAOIKH3xWwUHjtDNbIcgHw0YzfCcNZE4qouHpVRMOH7MuDQwuUW7Qy47w+Cm1yvvZiFQGUdqTM4hmda036JNYd6cg9pwa6IxxgTYGOptkE+wDCVwUzruEesRSmTBFMykTAT6ftgz7EuCOIDx/7P8AkqrpiTKZifk1Bgklak=
+  - secure: T8EPX6Mk1/nrJriSelFdlSZr8GPIC4wjjYjQ31p+Jrbx54dGVRGbDa/z5fPfKDHmSBmW+QhlKCGg13NxdQVHzn4AnkC9CjV3kKcKvOQFxkzx8/iPQzOZu1DIXHI0g4HiBMBE6IbRen37u0xLuABu8/PPqMt47fX745bG1HbsAs0=

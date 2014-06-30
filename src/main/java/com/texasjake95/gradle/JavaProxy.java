@@ -36,7 +36,7 @@ public class JavaProxy {
 		javaConv.setTargetCompatibility("1.7");
 		if (debug)
 			System.out.println("Setting Group");
-		project.setGroup("com.texasjake95");
+		project.setGroup("com.gitub.texasjake95");
 	}
 	
 	public void addRepos(Project project)
@@ -44,6 +44,9 @@ public class JavaProxy {
 		project.getRepositories().mavenLocal();
 		project.getRepositories().mavenCentral();
 		ProjectHelper.addMaven(project, "texasjake95Maven", "https://github.com/Texasjake95/maven-repo/raw/master/");
+		ProjectHelper.addMaven(project, "sonatype snapshots", "https://oss.sonatype.org/content/repositories/snapshots/");
+		ProjectHelper.addMaven(project, "sonatype releases", "https://oss.sonatype.org/content/repositories/releases/");
+
 	}
 	
 	public void applyPlugins(Project project)

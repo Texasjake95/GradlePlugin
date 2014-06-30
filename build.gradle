@@ -7,12 +7,29 @@ apply plugin: 'maven'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-group = "com.texasjake95"
+group = "com.gitub.texasjake95"
 archivesBaseName = "GradlePlugin"
-version = '1.1-SNAPSHOT'
+version = '1.2-SNAPSHOT'
 
-jar { manifest {
-	} }
+jar { manifest { } }
+
+def isSnapshot=false
+def isRelease=false
+def dev=false
+
+if(project.hasProperty("snapshot"))
+{
+isSnapshot=true
+}
+else if(project.hasProperty("release"))
+{
+isRelease=true
+
+}
+else
+{
+dev = true
+}
 
 repositories {
 	mavenCentral()
@@ -45,11 +62,21 @@ uploadArchives {
 	dependsOn 'build'
 	repositories {
 		
-		if(project.hasProperty("filesmaven"))
+		if(!dev && mavenRepo)
 		{
 			mavenDeployer {
 				logger.info("Pushing to Maven Remote")
-				repository(url: project.filesmaven)
+				
+				if(isRelease && !project.version.contains("SNAPSHOT")
+					repository(url:"https://oss.sonatype.org/service/local/staging/deploy/maven2/"){
+						authentication(userName: project.mavenUser, password: project.mavenPass)
+					}
+				
+				if(isSnapshot)
+     				snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/"){
+						authentication(userName: project.mavenUser, password: project.mavenPass)
+					}
+				
 				pom {
 					groupId = project.group
 					version = project.version
@@ -61,8 +88,8 @@ uploadArchives {
 						url 'https://github.com/Texasjake95/GradlePlugin'
 						
 						scm {
-							url 'https://github.com/Texasjake95/GradlePlugin'
-							connection 'scm:git:git://github.com/Texasjake95/GradlePlugin.git'
+							url 'git@github.com:Texasjake95/GradlePlugin.git'
+							connection 'scm:git:git@github.com:Texasjake95/GradlePlugin.git'
 							developerConnection 'scm:git:git@github.com:Texasjake95/GradlePlugin.git'
 						}
 						
@@ -75,6 +102,9 @@ uploadArchives {
 							developer {
 								id 'Texasjake95'
 								name 'Texasjake95'
+								organizationUrl 'https://github.com/Texasjake95/'
+								email 'texasjake95@gmail.com'
+								organization 'Texasjake95'
 								roles { role 'developer' }
 							}
 						}
