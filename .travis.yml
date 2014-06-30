@@ -1,10 +1,13 @@
 language: java
 jdk:
 - oraclejdk7
+
 before_install: bash scripts/preInstall.sh
-install: ./gradlew build -Psnapshot=true -PmavenUser=${userName} -PmavenPass=${passWord} -Psigning.keyId=${userID} -Psigning.password=${signPass} -Psigning.secretKeyRingFile=temp.gpg
-script: ./gradlew build -Psnapshot=true -PmavenUser=${userName} -PmavenPass=${passWord} -Psigning.keyId=${userID} -Psigning.password=${signPass} -Psigning.secretKeyRingFile=temp.gpg
+
+script: ./gradlew build 
+
 after_success: bash scripts/success.sh
+
 env:
   global:
   - secure: TcCZ818+1eDiMEG+V0DR7dDZLDVvWdAiJNXBdj/0A7PlyN8wSJzDkcwuLtezGj8Z6jq8X1VQY1FVM9FS4+28iaFYpqMEg15hAc29n20gWFV0BKWj5Qx98lrF3cqbJgzSGaXq2IgCVLe9Yq5WRceTsAi7r31/mymqk79RJs9MpcU=

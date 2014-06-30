@@ -4,8 +4,10 @@ apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-signing
-{ sign configurations.archives }
+signing{
+  	required { gradle.taskGraph.hasTask("uploadArchives") }
+	sign configurations.archives 
+}
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
