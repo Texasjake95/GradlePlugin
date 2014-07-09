@@ -5,8 +5,8 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 signing{
-  	required { gradle.taskGraph.hasTask("uploadArchives") }
-	sign configurations.archives 
+	required { gradle.taskGraph.hasTask("uploadArchives") && project.hasProperty("signJars")}
+	sign configurations.archives
 }
 
 sourceCompatibility = 1.7
@@ -22,17 +22,14 @@ def isSnapshot=false
 def isRelease=false
 def dev=false
 
-if(project.hasProperty("snapshot"))
-{
-isSnapshot=true
+if(project.hasProperty("snapshot")) {
+	isSnapshot=true
 }
-else if(project.hasProperty("release"))
-{
-isRelease=true
+else if(project.hasProperty("release")) {
+	isRelease=true
 }
-else
-{
-dev = true
+else {
+	dev = true
 }
 
 repositories {
@@ -55,8 +52,8 @@ task javadocJar(type: Jar, dependsOn: "javadoc") {
 	from "${buildDir}/docs/javadoc"
 }
 
-artifacts { 
-	archives sourcesJar 
+artifacts {
+	archives sourcesJar
 	archives javadocJar
 }
 
@@ -65,26 +62,26 @@ build.dependsOn sourcesJar, javadocJar
 uploadArchives {
 	dependsOn 'build'
 	repositories {
-		
-		if(!dev)
-		{
+
+		if(!dev) {
 			mavenDeployer {
 				logger.info("Pushing to Maven Remote")
-				
-				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-				
+
+				if(project.hasProperty("signJars"))
+					beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
 				if(isRelease && !project.version.contains("SNAPSHOT")){
 					repository(url:"https://oss.sonatype.org/service/local/staging/deploy/maven2/"){
 						authentication(userName: project.mavenUser, password: project.mavenPass)
 					}
 				}
-				
+
 				if(isSnapshot){
-     				snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/"){
+					snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/"){
 						authentication(userName: project.mavenUser, password: project.mavenPass)
 					}
 				}
-				
+
 				pom {
 					groupId = project.group
 					version = project.version
@@ -94,18 +91,18 @@ uploadArchives {
 						packaging 'jar'
 						description 'Plugin for Texasjake95\'s gradle scripts'
 						url 'https://github.com/Texasjake95/GradlePlugin'
-						
+
 						scm {
 							url 'git@github.com:Texasjake95/GradlePlugin.git'
 							connection 'scm:git:git@github.com:Texasjake95/GradlePlugin.git'
 							developerConnection 'scm:git:git@github.com:Texasjake95/GradlePlugin.git'
 						}
-						
+
 						issueManagement {
 							system 'github'
 							url 'https://github.com/Texasjake95/GradlePlugin/issues'
 						}
-						
+
 						developers {
 							developer {
 								id 'Texasjake95'

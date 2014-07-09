@@ -4,12 +4,11 @@ import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.bundling.Jar;
 import org.gradle.api.tasks.javadoc.Javadoc;
-import org.gradle.plugins.signing.SigningExtension;
 
 public class JavaProxy {
-	
+
 	private static boolean debug = false;
-	
+
 	public static void apply(Project project)
 	{
 		if (debug)
@@ -31,10 +30,6 @@ public class JavaProxy {
 		//
 		project.getTasks().getByName("build").dependsOn("sourceJar", "javadocJar");
 		project.getExtensions().create("eclipseSetup", ExtensionEclipseSetup.class);
-		//
-		SigningExtension signing = (SigningExtension) project.getExtensions().getByName("signing");
-		signing.setRequired(project.getGradle().getTaskGraph().getAllTasks().contains("uploadArchives"));
-		signing.sign(project.getConfigurations().getByName("archives"));
 		//
 		if (debug)
 			System.out.println("Adding Repos");
