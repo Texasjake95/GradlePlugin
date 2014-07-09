@@ -5,7 +5,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 signing{
-	required { gradle.taskGraph.hasTask("uploadArchives") && !project.hasProperty("signJars")}
+	required { (gradle.taskGraph.hasTask("uploadArchives") && project.hasProperty("signJars"))}
 	sign configurations.archives
 }
 
@@ -16,7 +16,8 @@ group = "com.github.texasjake95"
 archivesBaseName = "GradlePlugin"
 version = '1.2-SNAPSHOT'
 
-jar { manifest { } }
+jar { manifest {
+	} }
 
 def isSnapshot=false
 def isRelease=false
