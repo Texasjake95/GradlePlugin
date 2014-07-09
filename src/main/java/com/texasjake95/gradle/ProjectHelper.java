@@ -83,7 +83,6 @@ public class ProjectHelper {
 		applyPlugin(project, "java");
 		applyPlugin(project, "eclipse");
 		applyPlugin(project, "maven");
-		applyPlugin(project, "signing");
 	}
 
 	@SuppressWarnings("unchecked")
