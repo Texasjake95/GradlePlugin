@@ -43,6 +43,8 @@ public class ProjectHelper {
 
 	public static void addDependency(Project project, String convention, String dep)
 	{
+		if (project.getConfigurations().findByName(convention) == null)
+			project.getConfigurations().create(convention);
 		project.getDependencies().add(convention, dep);
 	}
 
