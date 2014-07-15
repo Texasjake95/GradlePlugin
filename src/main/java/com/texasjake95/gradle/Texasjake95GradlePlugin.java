@@ -7,6 +7,7 @@ import org.gradle.api.tasks.bundling.Jar;
 import org.gradle.api.tasks.javadoc.Javadoc;
 import org.gradle.plugins.ide.eclipse.model.EclipseClasspath;
 import org.gradle.plugins.ide.eclipse.model.EclipseModel;
+import org.gradle.plugins.signing.SigningExtension;
 
 public class Texasjake95GradlePlugin implements Plugin<Project> {
 
@@ -49,5 +50,8 @@ public class Texasjake95GradlePlugin implements Plugin<Project> {
 		EclipseModel eclipse = (EclipseModel) project.getConvention().getByName("eclipse");
 		EclipseClasspath classpath = eclipse.getClasspath();
 		classpath.getFile().withXml(new EclipseClosure(project));
+		SigningExtension signing = ProjectHelper.getExtension(project, "signing");
+		signing.setRequired(new SigningClosure(project));
+		signing.sign(project.getConfigurations().findByName("archives"));
 	}
 }
