@@ -56,7 +56,7 @@ public class EclipseClosure extends Closure<XmlProvider> {
 		t = split[split.length - 1];
 		if (t.contains("gradle") && t.contains("jar"))
 		{
-			if (project.getGradle().getGradleHomeDir() != null || project.getGradle().getGradleHomeDir().exists())
+			if (project.getGradle().getGradleHomeDir() != null && project.getGradle().getGradleHomeDir().exists())
 			{
 				node.attributes().put("sourcepath", project.getGradle().getGradleHomeDir() + "/src/" + parseName(t));
 			}
