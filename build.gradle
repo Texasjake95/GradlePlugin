@@ -1,4 +1,5 @@
-apply plugin: 'groovy'
+import org.gradle.api.Project;
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
@@ -38,9 +39,46 @@ repositories {
 	mavenLocal()
 }
 
+eclipse.classpath.file.withXml{
+	def node = it.asNode()
+	def toRemove = new ArrayList<Node>()
+	node.each {
+		String t = it.attribute('path');
+		String[] split = t.split("/");
+		t = split[split.length - 1];
+		if (t.contains("gradle") && t.contains("jar")) {
+			if(project.gradle.gradleHomeDir){
+				it.attributes().put("sourcepath",project.gradle.gradleHomeDir.toString()+ "/src/" + parseName(t))
+			}
+		}
+		if(t.contains("groovy-all-2.3.3")) {
+			Object temp = find("groovy-all-2.3.3-sources")
+			println temp
+			it.attributes().put("sourcepath",temp)
+		}
+	}
+	toRemove.each
+	{ node.remove(it) }
+}
+
+def find(depName) {
+	return project.configurations.sourceOnly.find { it.name.contains(depName) }
+}
+
+def parseName(name) {
+	String t = name
+	String[] split = t.split("-");
+	if(split.length == 3)
+		t = split[1]
+	else if (split.length == 4)
+		t = split[1] + "-" + split[2]
+	return t;
+}
+
+configurations { sourceOnly }
 dependencies {
 	compile gradleApi()
-	compile localGroovy()
+	sourceOnly "org.codehaus.groovy:groovy-all:2.3.3:sources"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

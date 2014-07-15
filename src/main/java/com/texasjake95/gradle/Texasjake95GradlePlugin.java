@@ -1,19 +1,24 @@
 package com.texasjake95.gradle;
 
+import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.bundling.Jar;
 import org.gradle.api.tasks.javadoc.Javadoc;
+import org.gradle.plugins.ide.eclipse.model.EclipseClasspath;
+import org.gradle.plugins.ide.eclipse.model.EclipseModel;
 
-public class JavaProxy {
+public class Texasjake95GradlePlugin implements Plugin<Project> {
 
 	private static boolean debug = false;
 
-	public static void apply(Project project)
+	@Override
+	public void apply(Project project)
 	{
 		if (debug)
 			System.out.println("Applying Plugins");
 		ProjectHelper.applyPlugins(project);
+		project.getConfigurations().create("sourceOnly");
 		JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java");
 		//
 		Jar task = ProjectHelper.addTask(project, "javadocJar", Jar.class);
@@ -41,5 +46,8 @@ public class JavaProxy {
 		if (debug)
 			System.out.println("Setting Group");
 		project.setGroup("com.github.texasjake95");
+		EclipseModel eclipse = (EclipseModel) project.getConvention().getByName("eclipse");
+		EclipseClasspath classpath = eclipse.getClasspath();
+		classpath.getFile().withXml(new EclipseClosure(project));
 	}
 }
