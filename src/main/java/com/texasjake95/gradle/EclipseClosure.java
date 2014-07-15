@@ -3,7 +3,6 @@ package com.texasjake95.gradle;
 import groovy.lang.Closure;
 import groovy.util.Node;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -38,7 +37,7 @@ public class EclipseClosure extends Closure<XmlProvider> {
 			ExtensionEclipseSetup eclipseSetup = ProjectHelper.getExtension((Project) this.getOwner(), "eclipseSetup");
 			for (EclipseData data : eclipseSetup.getData())
 			{
-				handle((Project) this.getOwner(), node, data.getDep(), data.getCode(), data.getSrc(), toRemove);
+				handle((Project) this.getOwner(), node, data.getDep(), data.getCode(), data.getSrc(), data.getCodeConfig(), data.getSrcConfig(), toRemove);
 			}
 			handleGradle((Project) this.getOwner(), node);
 		}
@@ -82,7 +81,7 @@ public class EclipseClosure extends Closure<XmlProvider> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void handle(Project project, Node node, String depName, String code, String src, ArrayList<Node> list)
+	private static void handle(Project project, Node node, String depName, String code, String src, String codeConfig, String srcConfig, ArrayList<Node> list)
 	{
 		if (depName != null)
 		{
@@ -95,17 +94,13 @@ public class EclipseClosure extends Closure<XmlProvider> {
 			Object path = node.attribute("path");
 			if (path != null && codeJar != null && sourceJar != null)
 			{
-				if (ProjectHelper.find(project, "default", codeJar) != null && ProjectHelper.find(project, "default", sourceJar) != null)
+				if (ProjectHelper.find(project, codeConfig, codeJar) != null && ProjectHelper.find(project, srcConfig, sourceJar) != null)
 				{
-					File file = ProjectHelper.find(project, "default", codeJar);
-					System.out.println(codeJar);
-					if (project.file(path).equals(project.file(ProjectHelper.find(project, "default", codeJar))))
+					if (project.file(path).toString().equals(project.file(ProjectHelper.find(project, srcConfig, codeJar)).toString()))
 					{
-						file = ProjectHelper.find(project, "default", sourceJar);
-						System.out.println(file);
-						node.attributes().put("sourcepath", file);
+						node.attributes().put("sourcepath", ProjectHelper.find(project, srcConfig, sourceJar));
 					}
-					if (project.file(path).equals(ProjectHelper.find(project, "default", sourceJar)))
+					if (project.file(path).equals(ProjectHelper.find(project, srcConfig, sourceJar)))
 					{
 						list.add(node);
 					}
